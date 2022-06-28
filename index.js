@@ -92,14 +92,14 @@ app.post('/api/add-score', (req, res) => {
     const updated = {
         name: "MarioKart",
         players: [
-            {playerId: "62ba1078a85efadc61e1c060", playerName: "Chloe", scores: [0, 1, 2, 3]},
-            {playerId: "62ba1ac1132394401e8d716b", playerName: "Thomas", scores: [0, 2, 3, 4]}
+            {playerId: "5adf75ae-c982-41e8-b989-b9f0f5fad145", playerName: "Chloe", scores: [0, 1, 2, 3]},
+            {playerId: "6baff9a8-61b2-4769-b095-ec48222ec1e1", playerName: "Thomas", scores: [0, 2, 3, 4]}
         ]
     }
 
     Game.updateOne({ name: 'MarioKart'}, { players: [
-        {playerId: "62ba1078a85efadc61e1c060", playerName: "Chloe", scores: [0, 1, 2, 3]},
-        {playerId: "62ba1ac1132394401e8d716b", playerName: "Thomas", scores: [0, 2, 3, 4]}
+        {playerId: "5adf75ae-c982-41e8-b989-b9f0f5fad145", playerName: "Chloe", scores: [0, 1, 2, 3]},
+        {playerId: "6baff9a8-61b2-4769-b095-ec48222ec1e1", playerName: "Thomas", scores: [0, 2, 3, 4]}
     ]}, null, () => {
         console.log('Done');
     });
@@ -129,33 +129,6 @@ app.post('/api/create-game', (req, res) => {
 
     res.send('Response');
 });
-
-// app.post('/api/create-game', (req, res) => {
-//     const input = req.body; // Get the body input of the request.
-//     const playersId = input.players; // Get the player IDs.
-//     const gameName = input.name; // Get the game name.
-//     var gameMembers = []; // Empty array to store the game members.
-    
-//     // Loop through the PlayerIDs to push the gameMember Schemas to game members.
-//     playersId.forEach(playerId => {
-//         gameMembers.push(new GameMember({
-//             playerId: playerId,
-//             scores: []
-//         }));
-//     });
-
-//     // We need to get a new game now:
-//     newGame = new Game({
-//         name: gameName,
-//         players: gameMembers
-//     });
-
-//     // Save the new entry.
-//     newGame.save().then(() => console.log('New Game Entry Added'));
-
-//     res.send('Response');
-// });
-
 
 app.post('/api/add-player', (req, res) => {
     var player = req.body; // Get the request body.
