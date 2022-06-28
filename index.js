@@ -89,29 +89,20 @@ app.post('/api/add-score', (req, res) => {
     const playerId = input.playerId;
     const score = input.score;
 
-    // Firstly we need to get the game that we want:
-    const tempId = '62ba218a2f05dc821741a287'
+    const updated = {
+        name: "MarioKart",
+        players: [
+            {playerId: "62ba1078a85efadc61e1c060", playerName: "Chloe", scores: [0, 1, 2, 3]},
+            {playerId: "62ba1ac1132394401e8d716b", playerName: "Thomas", scores: [0, 2, 3, 4]}
+        ]
+    }
 
-    // We Need to figure out how to modify the document.
-    // We already have the code to retreive the game.
-
-    // This is a failed attempt:
-    retreiveGame(tempId, (err, doc) => {
-        let update = doc;
-        
-        // We need to get the index of the player:
-        var index = 0;
-        doc.players.forEach(player => {
-            if (player.playerId == playerId) {
-                console.log('FoundPlayer');
-            } else {
-                index += 1;
-            }
-        });
-
-        let updateDoc = Game.findOneAndUpdate(tempId, { players })
+    Game.updateOne({ name: 'MarioKart'}, { players: [
+        {playerId: "62ba1078a85efadc61e1c060", playerName: "Chloe", scores: [0, 1, 2, 3]},
+        {playerId: "62ba1ac1132394401e8d716b", playerName: "Thomas", scores: [0, 2, 3, 4]}
+    ]}, null, () => {
+        console.log('Done');
     });
-    
 
     res.send('response');
 });
