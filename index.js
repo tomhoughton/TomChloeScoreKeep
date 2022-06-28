@@ -22,7 +22,7 @@ const gameMemberSchema = new mongoose.Schema({
 
 const gameSchema = new mongoose.Schema({
     name: String,
-    players: [gameMemberSchema]
+    players: [{playerId: String, playerName: String, scores: [Number]}]
 });
 
 // Models:
@@ -41,10 +41,22 @@ const createNewPlayer = (name) => {
 const createNewGame = (players, name) => {
     const newGame = new Game({
         Name: name,
-    })
+    });
 } 
 
+// Functions:
+const retreiveGame = (id, callback) => {
+    Game.findById(id, (err, found) => {
+        if (!err) {
+            callback(null, found);
+        } else if (err) {
+            callback(err, null);
+        }
+    });
+}
+
 // Routes:
+// TODO: Possible get game to ID, or player to ID Api Routes.
 // This will be for the default page:
 app.get('/', (req, res) => {
     res.send('Hello');
@@ -71,27 +83,54 @@ app.get('/api/get-players', (req,res) => {
 });
 
 app.post('/api/add-score', (req, res) => {
+    // Get the request input:
+    const input = req.body;
+    const gameName = input.gameName;
+    const playerId = input.playerId;
+    const score = input.score;
 
+    // Firstly we need to get the game that we want:
+    const tempId = '62ba218a2f05dc821741a287'
+
+    // We Need to figure out how to modify the document.
+    // We already have the code to retreive the game.
+
+    // This is a failed attempt:
+    retreiveGame(tempId, (err, doc) => {
+        let update = doc;
+        
+        // We need to get the index of the player:
+        var index = 0;
+        doc.players.forEach(player => {
+            if (player.playerId == playerId) {
+                console.log('FoundPlayer');
+            } else {
+                index += 1;
+            }
+        });
+
+        let updateDoc = Game.findOneAndUpdate(tempId, { players })
+    });
+    
+
+    res.send('response');
 });
 
 app.post('/api/create-game', (req, res) => {
     const input = req.body; // Get the body input of the request.
-    const playersId = input.players; // Get the player IDs.
+    const players = input.players; // Get the player IDs.
     const gameName = input.name; // Get the game name.
-    var gameMembers = []; // Empty array to store the game members.
-    
-    // Loop through the PlayerIDs to push the gameMember Schemas to game members.
-    playersId.forEach(playerId => {
-        gameMembers.push(new GameMember({
-            playerId: playerId,
-            scores: []
-        }));
+    var uploadPlayers = []; // Store the players data that we need to upload.
+
+    players.forEach(player => {
+        uploadPlayers.push({
+            playerId: player.playerId, playerName: player.playerName, scores: [0]
+        });
     });
 
-    // We need to get a new game now:
-    newGame = new Game({
+    const newGame = new Game({
         name: gameName,
-        players: gameMembers
+        players: uploadPlayers
     });
 
     // Save the new entry.
@@ -99,6 +138,33 @@ app.post('/api/create-game', (req, res) => {
 
     res.send('Response');
 });
+
+// app.post('/api/create-game', (req, res) => {
+//     const input = req.body; // Get the body input of the request.
+//     const playersId = input.players; // Get the player IDs.
+//     const gameName = input.name; // Get the game name.
+//     var gameMembers = []; // Empty array to store the game members.
+    
+//     // Loop through the PlayerIDs to push the gameMember Schemas to game members.
+//     playersId.forEach(playerId => {
+//         gameMembers.push(new GameMember({
+//             playerId: playerId,
+//             scores: []
+//         }));
+//     });
+
+//     // We need to get a new game now:
+//     newGame = new Game({
+//         name: gameName,
+//         players: gameMembers
+//     });
+
+//     // Save the new entry.
+//     newGame.save().then(() => console.log('New Game Entry Added'));
+
+//     res.send('Response');
+// });
+
 
 app.post('/api/add-player', (req, res) => {
     var player = req.body; // Get the request body.
