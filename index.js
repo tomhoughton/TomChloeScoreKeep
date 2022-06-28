@@ -63,9 +63,10 @@ app.get('/', (req, res) => {
 });
 
 app.get('/api/get-games', (req, res) => {
+    console.log('Get Games');
     var games = Game.find({}, (err, found) => {
         if (!err) {
-            res.send(found);
+            res.send(JSON.stringify( { data: found } ));
         } else if (err) {
             res.send(err);
         }
