@@ -107,8 +107,6 @@ export default function GameCard() {
                     </Tbody>
                 </Table>
             </TableContainer>
-
-
             <Popover>
                 <PopoverTrigger>
                     <Button colorScheme='teal' variant='ghost'>Add Scores</Button>

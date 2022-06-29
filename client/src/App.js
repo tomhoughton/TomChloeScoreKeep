@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState, setState } from 'react';
 import {
     ChakraProvider,
     theme,
@@ -10,6 +10,15 @@ import GameCard from './components/GameCard';
 import CreateNewGameCard from './components/CreateNewGameCard';
 
 function App() {
+
+    const [ state, setState ] = useState([]);
+
+    useEffect(() => {
+        fetch("/api/get-games").then(
+            
+        );
+    }, []);
+
     return (
         <ChakraProvider theme={theme}>
             <Center>
