@@ -8,6 +8,7 @@ import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { Logo } from './Logo';
 import GameCard from './components/GameCard';
 import CreateNewGameCard from './components/CreateNewGameCard';
+import AddNewPlayer from './components/AddNewPlayer';
 
 function App() {
 
@@ -32,6 +33,9 @@ function App() {
             }
             <Center>
                 <CreateNewGameCard />
+            </Center>
+            <Center>
+                <AddNewPlayer />
             </Center>
         </ChakraProvider>
     );

@@ -19,12 +19,19 @@ import {
     Portal,
     PopoverContent,
     PopoverHeader,
-    PopoverFooter,
     PopoverBody,
     PopoverArrow,
     PopoverCloseButton
 } from '@chakra-ui/react';
 import AddScores from './AddScores';
+
+const chartColors = [
+    '#F27777',
+    '#30BFB1',
+    '#E6C949',
+    '#87EB81',
+    '#B49ACC'
+];
 
 // We need to sort the data:
 const createChartData = (players) => {
@@ -77,7 +84,7 @@ export default function GameCard(props) {
             <Heading>{props.header}</Heading>
             <VictoryChart>
                 {
-                    playerCartData.map((data) => {
+                    playerCartData.map((data, i) => {
                         return (
                             <VictoryGroup>
                                 <VictoryLine
@@ -87,7 +94,7 @@ export default function GameCard(props) {
                                         onLoad: { duration: 1000 }
                                     }}
                                     style={{
-                                    data: { stroke: "#c43a31" },
+                                    data: { stroke: chartColors[i], strokeWidth:  5, opacity: 0.8},
                                     parent: { border: "1px solid #ccc"}
                                     }}
                                     data={data.scores}
@@ -99,12 +106,11 @@ export default function GameCard(props) {
             </VictoryChart>
                 <Center>
                     <HStack>
-                            <Tag backgroundColor='#ff0000'>
-                                Tom
-                            </Tag>
-                            <Tag backgroundColor='#ff0000'>
-                                Tom
-                            </Tag>
+                        {
+                            playerCartData.map((data, i) => {
+                                return <Tag backgroundColor={chartColors[i]}>{data.name}</Tag>
+                            })
+                        }
                     </HStack>
                 </Center>
             <TableContainer>
