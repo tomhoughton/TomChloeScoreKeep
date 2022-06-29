@@ -8,10 +8,6 @@ import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { Logo } from './Logo';
 import GameCard from './components/GameCard';
 import CreateNewGameCard from './components/CreateNewGameCard';
-// TODOs:
-// - Create the main game card:
-//      - Shows a graph and table of scores
-
 
 function App() {
     return (
