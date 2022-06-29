@@ -150,3 +150,20 @@ mongoose.connect(MONGODB, {useNewUrlParser: true})
 
 // Now we must try and add a new player:
 // createNewPlayer('Name');
+
+/* 
+
+    useEffect(() => {
+        fetch("/api/get-games").then(
+            res =>  {
+                if (res.ok) {
+                    res.json().then(json => {
+                        setState(json.data);
+                    })
+                } else {
+                    console.log('Error');
+                }
+            }
+        );
+    }, []);
+*/
