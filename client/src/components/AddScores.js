@@ -1,7 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
-    Box,
-    Heading,
     TableContainer,
     Table,
     Tr,
@@ -15,8 +13,19 @@ import {
 } from '@chakra-ui/react';
 
 export default function AddScores() {
+
+    const [value, setValue] = React.useState('');
+
+    const handleChange = (event) => {
+        setValue(event.target.value)
+    };
+
+    const addScore = () => {
+        console.log(`Value: ${value}`);
+    }
+
     return (
-        <Box style={{margin: '10px', padding: '10px'}}maxW='30rem' minW='15rem' borderWidth='1px' borderRadius='lg'>
+        <div>
             <TableContainer>
                 <Table variant='simple'>
                     <Thead>
@@ -28,7 +37,7 @@ export default function AddScores() {
                     <Tbody>
                         <Tr>
                             <Td>Thomas</Td>
-                            <Td><Input variant='filled' placeholder='New Score' /></Td>
+                            <Td><Input variant='filled' placeholder='New Score' onChange={handleChange}/></Td>
                         </Tr>
                         <Tr>
                             <Td>Chloe</Td>
@@ -42,9 +51,9 @@ export default function AddScores() {
                 </Table>
             </TableContainer>
             <HStack>
-                <Button colorScheme='teal' variant='ghost'>Add Scores</Button>
+                <Button colorScheme='teal' variant='ghost' onClick={addScore}>Add Scores</Button>
                 <Button colorScheme='red' variant='ghost'>Cancel</Button>
             </HStack>
-        </Box>
+        </ div>
     )
 }

@@ -13,8 +13,18 @@ import {
     Button,
     HStack,
     Tag,
-    Center
+    Center,
+    Popover,
+    PopoverTrigger,
+    Portal,
+    PopoverContent,
+    PopoverHeader,
+    PopoverFooter,
+    PopoverBody,
+    PopoverArrow,
+    PopoverCloseButton
 } from '@chakra-ui/react';
+import AddScores from './AddScores';
 
 export default function GameCard() {
     return (
@@ -97,7 +107,24 @@ export default function GameCard() {
                     </Tbody>
                 </Table>
             </TableContainer>
-            <Button colorScheme='teal' variant='ghost'>Add Scores</Button>
+
+
+            <Popover>
+                <PopoverTrigger>
+                    <Button colorScheme='teal' variant='ghost'>Add Scores</Button>
+                </PopoverTrigger>
+                <Portal>
+                    <PopoverContent>
+                        <PopoverArrow />
+                        <PopoverHeader>Add Scores</PopoverHeader>
+                        <PopoverCloseButton />
+                        <PopoverBody>
+                            <AddScores />
+                        </PopoverBody>
+                    </PopoverContent>
+                </Portal>
+            </Popover>
+
         </Box>
     );
 }
