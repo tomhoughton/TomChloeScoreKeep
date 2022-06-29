@@ -26,52 +26,76 @@ import {
 } from '@chakra-ui/react';
 import AddScores from './AddScores';
 
-export default function GameCard() {
+// We need to sort the data:
+const createChartData = (players) => {
+    var playerData = [];
+
+    players.forEach(player => {
+
+        let playerName = player.playerName;
+
+        // console.log(`Player: ${player.playerName}`)
+        var scores = [];
+        player.scores.forEach((score, i) => {
+            scores.push({x: i, y: score})
+        });
+        
+        playerData.push({ name: playerName, scores: scores });
+    }); 
+
+    return playerData;
+}
+
+const createTableData = (chartData) => {
+    var tableData = [];
+
+    chartData.forEach(player => {
+        
+        var totalScore = 0;
+        player.scores.forEach(score => {
+            totalScore += score.y;
+        });
+        
+        tableData.push({ name: player.name, total: totalScore })
+    });
+
+    return tableData;
+}
+
+export default function GameCard(props) {
+
+    // Re format data for the charts:
+    var playerCartData = createChartData(props.players); 
+
+    // Get the table data:
+    var tableData = createTableData(playerCartData);
+    console.log('Table Data');
+    console.log(tableData);
+
     return (
         <Box style={{margin: '10px', padding: '10px'}}maxW='30rem' minW='15rem' borderWidth='1px' borderRadius='lg'>
-            <Heading>Game Card</Heading>
+            <Heading>{props.header}</Heading>
             <VictoryChart>
-                <VictoryGroup>
-                    <VictoryLine
-                        interpolation="natural"
-                        animate={{
-                            duration: 2000,
-                            onLoad: { duration: 1000 }
-                        }}
-                        style={{
-                        data: { stroke: "#c43a31" },
-                        parent: { border: "1px solid #ccc"}
-                        }}
-                        data={[
-                        { x: 1, y: 2 },
-                        { x: 2, y: 3 },
-                        { x: 3, y: 5 },
-                        { x: 4, y: 4 },
-                        { x: 5, y: 7 }
-                        ]}
-                    />
-                </VictoryGroup>
-                <VictoryGroup>
-                    <VictoryLine
-                        interpolation="natural"
-                        animate={{
-                            duration: 2000,
-                            onLoad: { duration: 1000 }
-                        }}
-                    
-                        style={{
-                        data: { stroke: "#00ff00" },
-                        parent: { border: "1px solid #ccc"}
-                        }}
-                        data={[
-                        { x: 1, y: 8 },
-                        { x: 2, y: 4 },
-                        { x: 3, y: 5 },
-                        { x: 4, y: 9 },
-                        { x: 5, y: 10 }
-                        ]}
-                    />
-                </VictoryGroup>
+                {
+                    playerCartData.map((data) => {
+                        return (
+                            <VictoryGroup>
+                                <VictoryLine
+                                    interpolation="natural"
+                                    animate={{
+                                        duration: 2000,
+                                        onLoad: { duration: 1000 }
+                                    }}
+                                    style={{
+                                    data: { stroke: "#c43a31" },
+                                    parent: { border: "1px solid #ccc"}
+                                    }}
+                                    data={data.scores}
+                                />
+                            </VictoryGroup>
+                        )
+                    })
+                }
             </VictoryChart>
                 <Center>
                     <HStack>
@@ -92,18 +116,16 @@ export default function GameCard() {
                         </Tr>
                     </Thead>
                     <Tbody>
-                        <Tr>
-                            <Td>Thomas</Td>
-                            <Td>56</Td>
-                        </Tr>
-                        <Tr>
-                            <Td>Chloe</Td>
-                            <Td>98</Td>
-                        </Tr>
-                        <Tr>
-                            <Td>Matthew</Td>
-                            <Td>1</Td>
-                        </Tr>
+                        {
+                            tableData.map((data) => {
+                                return (
+                                    <Tr>
+                                        <Td>{data.name}</Td>
+                                        <Td>{data.total}</Td>
+                                    </Tr>
+                                )
+                            })
+                        }
                     </Tbody>
                 </Table>
             </TableContainer>
