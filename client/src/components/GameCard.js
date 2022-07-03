@@ -72,7 +72,7 @@ const createTableData = (chartData) => {
 
 export default function GameCard(props) {
 
-    const [newScores, setScore] = useState([]);
+    const [newScores, setScore] = useState({});
     
     // Re format data for the charts:
     var playerCartData = createChartData(props.players); 
@@ -92,7 +92,26 @@ export default function GameCard(props) {
 
         // We need to do a check to see if the fields have been entered:.
 
+        // What data do we actually need?
+        // The game ID
+        // The new scores per player (this should be done through putting this into the state).
+
     }
+
+    const handleChange = (event, playerName) => {
+
+        // We need to get the previous state:
+        var previousState = newScores;
+
+        // Now set the name and value:
+        previousState[playerName] = event.target.value
+
+        setScore(previousState);
+
+        // Now we need to do a post request:
+    };
+
+    let wah = 'wah';
 
     return (
         <Box style={{margin: '10px', padding: '10px'}}maxW='30rem' minW='15rem' borderWidth='1px' borderRadius='lg'>
@@ -174,7 +193,7 @@ export default function GameCard(props) {
                                                 props.players.map((player) => {
                                                     return (<Tr>
                                                         <Td>{player.playerName}</Td>
-                                                        <Td><Input variant='filled' placeholder='New Scores' /> </Td>
+                                                        <Td><Input variant='filled' placeholder='New Scores' onChange={(event) => {handleChange(event, player.playerName)}} /> </Td>
                                                     </Tr>)
                                                 })
                                             }
