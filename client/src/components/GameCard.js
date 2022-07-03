@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { VictoryChart, VictoryGroup, VictoryLine } from 'victory'; 
 import {
     Box,
@@ -21,7 +21,8 @@ import {
     PopoverHeader,
     PopoverBody,
     PopoverArrow,
-    PopoverCloseButton
+    PopoverCloseButton,
+    Input
 } from '@chakra-ui/react';
 import AddScores from './AddScores';
 
@@ -71,6 +72,8 @@ const createTableData = (chartData) => {
 
 export default function GameCard(props) {
 
+    const [newScores, setScore] = useState([]);
+    
     // Re format data for the charts:
     var playerCartData = createChartData(props.players); 
 
@@ -78,6 +81,9 @@ export default function GameCard(props) {
     var tableData = createTableData(playerCartData);
     console.log('Table Data');
     console.log(tableData);
+
+    console.log('PlayerData');
+    console.log(props.players);
 
     // Add Scores function:
     const addScoresButtonClick = () => {
@@ -154,7 +160,32 @@ export default function GameCard(props) {
                         <PopoverHeader>Add Scores</PopoverHeader>
                         <PopoverCloseButton />
                         <PopoverBody>
-                            <AddScores />
+                            <div>
+                                <TableContainer>
+                                    <Table variant='simple'>
+                                        <Thead>
+                                            <Tr>
+                                                <Th>Players</Th>
+                                                <Th>New Scores</Th>
+                                            </Tr>
+                                        </Thead>
+                                        <Tbody>
+                                            {
+                                                props.players.map((player) => {
+                                                    return (<Tr>
+                                                        <Td>{player.playerName}</Td>
+                                                        <Td><Input variant='filled' placeholder='New Scores' /> </Td>
+                                                    </Tr>)
+                                                })
+                                            }
+                                        </Tbody>
+                                    </Table>
+                                </TableContainer>
+                                <HStack>
+                                    <Button colorScheme='teal' variant='ghost' onClick={addScoresButtonClick}>Add Scores</Button>
+                                    <Button colorScheme='red' variant='ghost'>Cancel</Button>
+                                </HStack>
+                            </div>
                         </PopoverBody>
                     </PopoverContent>
                 </Portal>
