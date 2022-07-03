@@ -109,6 +109,7 @@ export default function GameCard(props) {
         setScore(previousState);
 
         // Now we need to do a post request:
+        // Need to use the player ID rather than the player name.
     };
 
     let wah = 'wah';
