@@ -26,7 +26,7 @@ function App() {
                 state.map((data) => {
                     return (
                         <Center>
-                            <GameCard header={data.name} players={data.players}/>
+                            <GameCard header={data.name} players={data.players} id={data['_id']}/>
                         </Center>
                     )
                 })

@@ -81,7 +81,7 @@ app.get('/api/get-players', (req,res) => {
             res.send(found);
         } else if (err) {
             res.send(err);
-        }
+        }f/-['']
     });
 });
 
@@ -91,6 +91,10 @@ app.post('/api/add-score', (req, res) => {
     const gameName = input.gameName;
     const playerId = input.playerId;
     const score = input.score;
+
+    // So what do we do in this add score function ? 
+    // We get the game data:
+
 
     const updated = {
         name: "MarioKart",

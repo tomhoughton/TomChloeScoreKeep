@@ -79,6 +79,15 @@ export default function GameCard(props) {
     console.log('Table Data');
     console.log(tableData);
 
+    // Add Scores function:
+    const addScoresButtonClick = () => {
+        
+        // Wait we acc need to render the players into the placeholder thingy:
+
+        // We need to do a check to see if the fields have been entered:.
+
+    }
+
     return (
         <Box style={{margin: '10px', padding: '10px'}}maxW='30rem' minW='15rem' borderWidth='1px' borderRadius='lg'>
             <Heading>{props.header}</Heading>
@@ -119,7 +128,7 @@ export default function GameCard(props) {
                         <Tr>
                             <Th>Players</Th>
                             <Th>Scores</Th>
-                        </Tr>
+                        </Tr>  
                     </Thead>
                     <Tbody>
                         {
@@ -137,7 +146,7 @@ export default function GameCard(props) {
             </TableContainer>
             <Popover>
                 <PopoverTrigger>
-                    <Button colorScheme='teal' variant='ghost'>Add Scores</Button>
+                    <Button colorScheme='teal' variant='ghost' onClick={addScoresButtonClick}>Add Scores</Button>
                 </PopoverTrigger>
                 <Portal>
                     <PopoverContent>
