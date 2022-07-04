@@ -96,6 +96,12 @@ export default function GameCard(props) {
         // The game ID
         // The new scores per player (this should be done through putting this into the state).
 
+        fetch('/api/add-score', {
+            headers: {'Content-Type': 'application/json'},
+            method: 'POST',
+            body: JSON.stringify({data: newScores})
+        });
+
     }
 
     const handleChange = (event, playerName) => {
@@ -107,9 +113,15 @@ export default function GameCard(props) {
         previousState[playerName] = event.target.value
 
         setScore(previousState);
+        
+        console.log('New State checker: ');
+        console.log(newScores);
 
         // Now we need to do a post request:
         // Need to use the player ID rather than the player name.
+
+        
+
     };
 
     let wah = 'wah';
@@ -172,7 +184,7 @@ export default function GameCard(props) {
             </TableContainer>
             <Popover>
                 <PopoverTrigger>
-                    <Button colorScheme='teal' variant='ghost' onClick={addScoresButtonClick}>Add Scores</Button>
+                    <Button colorScheme='teal' variant='ghost'>Add Scores</Button>
                 </PopoverTrigger>
                 <Portal>
                     <PopoverContent>
