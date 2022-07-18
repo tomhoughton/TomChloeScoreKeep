@@ -5,6 +5,7 @@ const { v4: uuidv4 } = require('uuid');
 const { MONGODB, PORT } = require('./config');
 
 const app = express(); // Create the base express app.
+const PORT = 5000; // The port for the server.
 
 // App uses:
 app.use(bodyParser.json()); // We use body parser to parse the json data to the server.
