@@ -74,6 +74,8 @@ export default function GameCard(props) {
 
     const [newScores, setScore] = useState({});
     
+    const [newR, setR] = useState(0);
+    
     // Re format data for the charts:
     var playerCartData = createChartData(props.players); 
 
@@ -110,6 +112,8 @@ export default function GameCard(props) {
                 gameName: props.header,
                 data: playersCopy
             })
+        }).then(() => {
+            setR(newR + 1); 
         });
     }
 
