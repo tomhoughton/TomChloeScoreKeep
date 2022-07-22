@@ -90,9 +90,6 @@ export default function GameCard(props) {
         
         // Copy the players Props;
         let playersCopy = props.players;
-        
-        console.log('Props');
-        console.log(props);
 
         props.players.forEach((player, index) => {
             // Get the Current (old) scores.
