@@ -133,40 +133,6 @@ export default function GameCard(props) {
         console.log('props');
     }
     
-    const handleChangeV2 = (event, playerId, playerName, scores, id) => {
-
-        // We need to get the previous state:
-        var previousState = newScores;
-
-        // This bit needs to revert back to the normal score change, then we do the player object on the push request.
-        console.log('Params');
-        console.log(playerName);
-        console.log(scores);
-
-        let newScores = scores.push(parseInt(event.target.value));
-        let player = {
-            playerId: playerId,
-            playerName: playerName,
-            scores: newScores,
-            _id: id
-        }
-
-        // Now set the name and value:
-        previousState[playerId] = player
-
-        setScore(player);
-        
-        console.log('New State checker: ');
-        console.log(newScores);
-        
-        console.log('props');
-        console.log(props);
-
-        // Now we need to do a post request:
-        // Need to use the player ID rather than the player name.
-
-    };
-
     return (
         <Box style={{margin: '10px', padding: '10px'}}maxW='30rem' minW='15rem' borderWidth='1px' borderRadius='lg'>
             <Heading>{props.header}</Heading>
