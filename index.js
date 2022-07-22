@@ -89,44 +89,23 @@ app.get('/api/get-players', (req,res) => {
 app.post('/api/add-score', (req, res) => {
     // Get the request input:
     const input = req.body;
-    const gameName = input.gameName;
-    const playerId = input.playerId;
-    const score = input.score;
 
-    // So what do we do in this add score function ? 
-    // We get the game data:
-
-    console.log('Request Received');
-    
-    console.log(input);
-    console.log('After Input');
-    
     // Get the keys array:
+    let gameName = input.gameName;
 
+    // This is the object to update the document:
+    let update = {
+        players: input.data
+    } 
 
     // Update the scores:
-    Game.updateOne({name: 'MarioCart'}, { 
-
+    Game.updateOne({name: gameName}, { 
+        players: update.players
+    }, null, () => {
+        console.log('Done');
     });
 
-    // const updated = {
-    //     name: "MarioKart",
-    //     players: [
-    //         {playerId: "5adf75ae-c982-41e8-b989-b9f0f5fad145", playerName: "Chloe", scores: [0, 25, 12, 34, 12, 54, 68, 48]},
-    //         {playerId: "6baff9a8-61b2-4769-b095-ec48222ec1e1", playerName: "Thomas", scores: [0, 30, 54, 64, 45, 54, 12, 11]}
-    //     ]
-    // }
-
-    // Game.updateOne({ name: 'Cards'}, { players: [
-    //     {playerId: "5adf75ae-c982-41e8-b989-b9f0f5fad145", playerName: "Chloe", scores: [58, 120, 134, 136, 200, 212, 234, 270]},
-    //     {playerId: "6baff9a8-61b2-4769-b095-ec48222ec1e1", playerName: "Thomas", scores: [30, 30, 54, 64, 123, 132, 142, 151]},
-    //     {playerId: "0264ff5f-a258-4b5e-b3f4-2de917aa497f", playerName: "Robert", scores: [54, 121, 138, 146, 152, 168, 210, 220]},
-    //     {playerId: "0672dbe0-0309-48ab-bcb7-87c46ce6a46b", playerName: "Jill", scores: [64, 72, 140, 153, 184, 214, 225, 275]},
-    //     {playerId: "10f9b8dc-66b1-4662-8820-0883f2b2ff6f", playerName: "Matt", scores: [80, 92, 142, 164, 182, 192, 245, 265]}
-    // ]}, null, () => {
-    //     console.log('Done');
-    // });
-
+    // Send a confirmation response:
     res.send('response');
 });
 
