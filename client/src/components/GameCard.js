@@ -88,43 +88,76 @@ export default function GameCard(props) {
     // Add Scores function:
     const addScoresButtonClick = () => {
         
-        // Wait we acc need to render the players into the placeholder thingy:
+        // Copy the players Props;
+        let playersCopy = props.players;
 
-        // We need to do a check to see if the fields have been entered:.
+        props.players.forEach((player, index) => {
+            // Get the Current (old) scores.
+            let currentScores = player.scores;
 
-        // What data do we actually need?
-        // The game ID
-        // The new scores per player (this should be done through putting this into the state).
+            // Push the new scores to the array.
+            currentScores.push(parseInt(newScores[player.playerId]));
 
+            // Add the new scores array to the players copy.
+            playersCopy[index].scores = currentScores;
+        });
+        
+        // Push the players copy to the server.
         fetch('/api/add-score', {
             headers: {'Content-Type': 'application/json'},
             method: 'POST',
-            body: JSON.stringify({data: newScores})
+            body: JSON.stringify({data: playersCopy})
         });
 
     }
 
-    const handleChange = (event, playerName) => {
+    const handleChange = (event, playerName, playerId, scores, id) => {
+        // We need to get the previous state;
+        var previousState = newScores;
+
+        // Now set the name and clue:
+        previousState[playerName] = parseInt(event.target.value);
+
+        setScore(previousState);
+
+        console.log('New State checker');
+        console.log(newScores);
+
+        console.log(props);
+        console.log('props');
+    }
+    
+    const handleChangeV2 = (event, playerId, playerName, scores, id) => {
 
         // We need to get the previous state:
         var previousState = newScores;
 
-        // Now set the name and value:
-        previousState[playerName] = event.target.value
+        // This bit needs to revert back to the normal score change, then we do the player object on the push request.
+        console.log('Params');
+        console.log(playerName);
+        console.log(scores);
 
-        setScore(previousState);
+        let newScores = scores.push(parseInt(event.target.value));
+        let player = {
+            playerId: playerId,
+            playerName: playerName,
+            scores: newScores,
+            _id: id
+        }
+
+        // Now set the name and value:
+        previousState[playerId] = player
+
+        setScore(player);
         
         console.log('New State checker: ');
         console.log(newScores);
         
-
         console.log('props');
         console.log(props);
 
         // Now we need to do a post request:
         // Need to use the player ID rather than the player name.
-
-        
 
     };
 
@@ -208,7 +241,7 @@ export default function GameCard(props) {
                                                 props.players.map((player) => {
                                                     return (<Tr>
                                                         <Td>{player.playerName}</Td>
-                                                        <Td><Input variant='filled' placeholder='New Scores' onChange={(event) => {handleChange(event, player.playerId)}} /> </Td>
+                                                        <Td><Input variant='filled' placeholder='New Scores' onChange={(event) => {handleChange(event, player.playerId, player.playerName, player.scores, player['_id'])}} /> </Td>
                                                     </Tr>)
                                                 })
                                             }

@@ -99,7 +99,15 @@ app.post('/api/add-score', (req, res) => {
     console.log('Request Received');
     
     console.log(input);
+    console.log('After Input');
     
+    // Get the keys array:
+
+
+    // Update the scores:
+    Game.updateOne({name: 'MarioCart'}, { 
+
+    });
 
     // const updated = {
     //     name: "MarioKart",
