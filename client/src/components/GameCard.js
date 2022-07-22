@@ -90,6 +90,9 @@ export default function GameCard(props) {
         
         // Copy the players Props;
         let playersCopy = props.players;
+        
+        console.log('Props');
+        console.log(props);
 
         props.players.forEach((player, index) => {
             // Get the Current (old) scores.
@@ -106,9 +109,11 @@ export default function GameCard(props) {
         fetch('/api/add-score', {
             headers: {'Content-Type': 'application/json'},
             method: 'POST',
-            body: JSON.stringify({data: playersCopy})
+            body: JSON.stringify({
+                gameName: props.header,
+                data: playersCopy
+            })
         });
-
     }
 
     const handleChange = (event, playerName, playerId, scores, id) => {
