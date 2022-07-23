@@ -126,11 +126,6 @@ export default function GameCard(props) {
 
         setScore(previousState);
 
-        console.log('New State checker');
-        console.log(newScores);
-
-        console.log(props);
-        console.log('props');
     }
     
     return (
