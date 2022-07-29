@@ -136,7 +136,7 @@ app.post('/api/add-player', (req, res) => {
     var player = req.body; // Get the request body.
 
     // Create a new player:
-    createNewPlayer(player.name); // Create the new player.
+    createNewPlayer(player.player); // Create the new player.
     res.send('Response'); // Confirm the response.
 });
 
@@ -148,23 +148,3 @@ mongoose.connect(MONGODB, {useNewUrlParser: true})
     .then(() => {
         console.log('MongoDB Successful');
     });
-
-// Now we must try and add a new player:
-// createNewPlayer('Name');
-
-/* 
-
-    useEffect(() => {
-        fetch("/api/get-games").then(
-            res =>  {
-                if (res.ok) {
-                    res.json().then(json => {
-                        setState(json.data);
-                    })
-                } else {
-                    console.log('Error');
-                }
-            }
-        );
-    }, []);
-*/
