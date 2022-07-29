@@ -45,17 +45,6 @@ const createNewGame = (players, name) => {
     });
 } 
 
-// Functions:
-const retreiveGame = (id, callback) => {
-    Game.findById(id, (err, found) => {
-        if (!err) {
-            callback(null, found);
-        } else if (err) {
-            callback(err, null);
-        }
-    });
-}
-
 // Routes:
 // TODO: Possible get game to ID, or player to ID Api Routes.
 // This will be for the default page:
@@ -82,7 +71,7 @@ app.get('/api/get-players', (req,res) => {
             res.send(found);
         } else if (err) {
             res.send(err);
-        }f/-['']
+        }
     });
 });
 
@@ -110,10 +99,13 @@ app.post('/api/add-score', (req, res) => {
 });
 
 app.post('/api/create-game', (req, res) => {
-    const input = req.body; // Get the body input of the request.
+    const input = req.body.data; // Get the body input of the request.
     const players = input.players; // Get the player IDs.
     const gameName = input.name; // Get the game name.
     var uploadPlayers = []; // Store the players data that we need to upload.
+
+
+    console.log(input);
 
     players.forEach(player => {
         uploadPlayers.push({
