@@ -2,10 +2,11 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const { v4: uuidv4 } = require('uuid');
-const { MONGODB } = require('./config');
+// const { MONGODB } = require('./config');
 
 const app = express(); // Create the base express app.
 const PORT = 5000; // The port for the server.
+const MONGODB = null;
 
 // App uses:
 app.use(bodyParser.json()); // We use body parser to parse the json data to the server.
