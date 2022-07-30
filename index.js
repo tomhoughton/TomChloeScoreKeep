@@ -134,10 +134,10 @@ app.post('/api/add-player', (req, res) => {
 });
 
 // Start the express server:
-app.listen(process.env.PORT || PORT, () => console.log(`Server is running on port: ${PORT}`));
+app.listen(process.env.PORT, () => console.log(`Server is running on port: ${PORT}`));
 
 // Connect to MongoDB:
-mongoose.connect(process.env.MONGODB || MONGODB, {useNewUrlParser: true})
+mongoose.connect(process.env.MONGODB, {useNewUrlParser: true})
     .then(() => {
         console.log('MongoDB Successful');
     });
