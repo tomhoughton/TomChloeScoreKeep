@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const path = require('path');
 const { v4: uuidv4 } = require('uuid');
 
 const app = express(); // Create the base express app.
