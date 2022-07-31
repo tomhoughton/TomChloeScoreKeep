@@ -50,7 +50,8 @@ const createNewGame = (players, name) => {
 // TODO: Possible get game to ID, or player to ID Api Routes.
 // This will be for the default page:
 app.use(express.static(path.join(__dirname, '../build')))
-app.get('/', (req, res) => {
+app.get('*', (req, res) => {
+    res.setHeader("Access-Control-Allow-Origin");
     res.sendFile(path.join(__dirname, '../client/buildindex.html'));
 });
 
