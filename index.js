@@ -137,7 +137,7 @@ app.post('/api/add-player', (req, res) => {
 app.listen(process.env.PORT, () => console.log(`Server is running on port: ${PORT} mongo: ${process.env.MONGODB} hello world: ${process.env.HelloWorld}`));
 
 // Connect to MongoDB:
-mongoose.connect(process.env.MONGODB, {useNewUrlParser: true})
+mongoose.connect(process.env.MONGODB_URI, {useNewUrlParser: true})
     .then(() => {
         console.log('MongoDB Successful');
     });
